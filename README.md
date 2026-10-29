@@ -20,6 +20,8 @@ Most LLM serving regressions show up as latency, not errors. A new quantization,
 
 ## Quick start
 
+Requires Java 21 or later.
+
 ```bash
 git clone https://github.com/nikhilsunku/llm-loadgate.git
 cd llm-loadgate
