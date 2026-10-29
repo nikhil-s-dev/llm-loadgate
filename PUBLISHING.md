@@ -16,7 +16,7 @@ git push -u origin main
 
 5. Verify that GitHub Actions passes and inspect the README rendering.
 6. Configure repository description, topics, and Issues; enable branch protection if desired.
-7. Create a `v0.1.0` tag only when the CI, release workflow, and packaging have been verified.
+7. Create a `v0.2.0` tag only when the CI, release workflow, and packaging have been verified.
 
 Do not publish example outputs as real benchmarks unless you have reproduced them.
 

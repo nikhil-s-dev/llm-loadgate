@@ -41,7 +41,7 @@ java -jar target/llm-loadgate.jar run \
 Example report format (sample values; rerun the commands above to obtain measured results on your machine):
 
 ```text
-llm-loadgate 0.1.0
+llm-loadgate 0.2.0
 target     http://127.0.0.1:8000/v1/chat/completions (model mock-llm)
 load       closed loop, concurrency 16; 400 requests, max_tokens 64
 prompts    built-in prompts (8)

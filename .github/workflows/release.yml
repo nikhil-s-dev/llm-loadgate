@@ -1,6 +1,6 @@
 name: Release
 
-# Push a tag like v0.1.0 to publish the jar on a GitHub release and the image on GHCR.
+# Push a tag like v0.2.0 to publish the jar on a GitHub release and the image on GHCR.
 on:
   push:
     tags: ["v*"]

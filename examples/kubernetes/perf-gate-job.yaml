@@ -26,7 +26,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: llm-loadgate
-          image: ghcr.io/nikhilsunku/llm-loadgate:0.1.0
+          image: ghcr.io/nikhilsunku/llm-loadgate:0.2.0
           args:
             - "run"
             - "--base-url=http://vllm.inference.svc.cluster.local:8000/v1"

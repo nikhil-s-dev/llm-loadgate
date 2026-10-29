@@ -16,7 +16,7 @@ jobs:
           distribution: temurin
           java-version: "21"
       - name: Download llm-loadgate
-        run: gh release download v0.1.0 --repo nikhilsunku/llm-loadgate --pattern llm-loadgate.jar
+        run: gh release download v0.2.0 --repo nikhilsunku/llm-loadgate --pattern llm-loadgate.jar
         env:
           GH_TOKEN: ${{ github.token }}
       - name: Check latency SLOs
