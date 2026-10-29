@@ -1,0 +1,64 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build and test (Java ${{ matrix.java }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        java: ["21", "25"]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java }}
+          cache: maven
+      - name: Build and run tests
+        run: ./mvnw --batch-mode --no-transfer-progress verify
+
+  latency-gate:
+    name: Latency gate against the mock server
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: maven
+      - name: Package
+        run: ./mvnw --batch-mode --no-transfer-progress -DskipTests package
+      - name: Start the mock LLM server
+        run: |
+          nohup java -jar target/llm-loadgate.jar mock-server --port 8000 --ttft-ms 120 --itl-ms 15 > mock-server.log 2>&1 &
+          for i in $(seq 1 30); do
+            curl -sf http://127.0.0.1:8000/health && exit 0
+            sleep 1
+          done
+          cat mock-server.log
+          exit 1
+      - name: Run llm-loadgate with SLOs
+        run: |
+          java -jar target/llm-loadgate.jar run \
+            --base-url http://127.0.0.1:8000/v1 \
+            --rate 20 --num-requests 200 --warmup 20 --max-tokens 64 \
+            --slo "ttft_p95<400ms" --slo "tpot_p95<40ms" --slo "error_rate<1%" \
+            --goodput "ttft<300ms,tpot<30ms" \
+            --json-out loadgate-report.json
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: loadgate-report
+          path: loadgate-report.json
+          if-no-files-found: ignore

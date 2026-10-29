@@ -1,0 +1,30 @@
+# Example workflow for another repository: block a release when the staging model server gets slower.
+# Copy to .github/workflows/ and set the STAGING_LLM_BASE_URL variable and STAGING_LLM_API_KEY secret.
+name: Staging latency gate
+
+on:
+  workflow_dispatch:
+  deployment_status:
+
+jobs:
+  latency-gate:
+    if: github.event_name == 'workflow_dispatch' || github.event.deployment_status.state == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Download llm-loadgate
+        run: gh release download v0.1.0 --repo nikhilsunku/llm-loadgate --pattern llm-loadgate.jar
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - name: Check latency SLOs
+        run: |
+          java -jar llm-loadgate.jar run \
+            --base-url "${{ vars.STAGING_LLM_BASE_URL }}" \
+            --rate 2 --num-requests 120 --warmup 10 \
+            --synthetic-input-tokens 1024 --max-tokens 256 \
+            --slo "ttft_p95<1500ms" --slo "tpot_p95<80ms" --slo "error_rate<1%"
+        env:
+          LLM_API_KEY: ${{ secrets.STAGING_LLM_API_KEY }}

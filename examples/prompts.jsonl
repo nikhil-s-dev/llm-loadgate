@@ -1,0 +1,8 @@
+{"prompt": "Explain what a vector database is to a backend engineer in three sentences."}
+{"prompt": "Write a SQL query that returns the top five customers by revenue in the last 90 days."}
+{"messages": [{"role": "system", "content": "You are a concise assistant for an operations team."}, {"role": "user", "content": "Summarize the steps to roll back a failed Kubernetes deployment."}]}
+{"messages": [{"role": "user", "content": "Compare optimistic and pessimistic locking with one example each."}]}
+{"prompt": "Draft release notes for a bug fix that resolves duplicate invoice emails."}
+{"messages": [{"role": "system", "content": "Answer in JSON with keys risk and mitigation."}, {"role": "user", "content": "What is the main risk of running database migrations during peak traffic?"}]}
+{"prompt": "List the trade-offs of using gRPC instead of REST between internal services."}
+{"prompt": "Describe how you would load test a streaming API and which metrics you would watch."}
