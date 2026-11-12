@@ -11,7 +11,7 @@
 
   <name>llm-loadgate</name>
   <description>Load-test LLM API endpoints and fail CI when latency SLOs regress.</description>
-  <url>https://github.com/nikhilsunku/llm-loadgate</url>
+  <url>https://github.com/nikhil-s-dev/llm-loadgate</url>
 
   <licenses>
     <license>
@@ -22,13 +22,13 @@
 
   <developers>
     <developer>
-      <name>Nikhil Sunku</name>
-      <url>https://github.com/nikhilsunku</url>
+      <name>Nikhil S</name>
+      <url>https://github.com/nikhil-s-dev</url>
     </developer>
   </developers>
 
   <scm>
-    <url>https://github.com/nikhilsunku/llm-loadgate</url>
+    <url>https://github.com/nikhil-s-dev/llm-loadgate</url>
   </scm>
 
   <properties>
