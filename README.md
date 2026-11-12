@@ -1,6 +1,6 @@
 # llm-loadgate
 
-Created and maintained by Nikhil Sunku.
+Created and maintained by Nikhil S.
 
 Load-test LLM API endpoints (vLLM, NVIDIA Triton, TGI, Ollama) and fail the build when latency SLOs regress.
 
@@ -16,14 +16,14 @@ Most LLM serving regressions show up as latency, not errors. A new quantization,
 - Reports for terminals, GitHub job summaries (Markdown) and pipelines (JSON)
 - Built-in mock LLM server, so you can try it and test it in CI without a GPU
 
-> **Validation:** GitHub Actions builds and tests on Java 21 and 25 and runs a latency gate against the mock server. See [CI runs](https://github.com/nikhilsunku/llm-loadgate/actions/workflows/ci.yml) for results. Sample outputs are illustrative unless reproduced and archived.
+> **Validation:** GitHub Actions builds and tests on Java 21 and 25 and runs a latency gate against the mock server. See [CI runs](https://github.com/nikhil-s-dev/llm-loadgate/actions/workflows/ci.yml) for results. Sample outputs are illustrative unless reproduced and archived.
 
 ## Quick start
 
 Requires Java 21 or later.
 
 ```bash
-git clone https://github.com/nikhilsunku/llm-loadgate.git
+git clone https://github.com/nikhil-s-dev/llm-loadgate.git
 cd llm-loadgate
 ./mvnw -q package                      # builds target/llm-loadgate.jar
 
@@ -148,7 +148,7 @@ docker build -t llm-loadgate .
 docker run --rm --network host llm-loadgate run --base-url http://localhost:8000/v1 --slo "ttft_p95<500ms"
 ```
 
-Tagging `v*` runs the [release workflow](.github/workflows/release.yml), which attaches the jar to a GitHub release and pushes the image to `ghcr.io/nikhilsunku/llm-loadgate`.
+Tagging `v*` runs the [release workflow](.github/workflows/release.yml), which attaches the jar to a GitHub release and pushes the image to `ghcr.io/nikhil-s-dev/llm-loadgate`.
 
 ## Design notes
 
